@@ -46,12 +46,10 @@ matriz eliminacaoGauss(matriz *a, int v) {
 
     matriz copia = *a;
     char titulo[100] = {0};
-    int tamanho_frase = 0;
     int passo = 0;
 
     if (v == 1) {
         strcpy(titulo, "* MATRIZ INICIAL");
-        tamanho_frase = strlen(titulo);
         printf("%s\n", titulo);
         printarMatriz(a, 1);
         printf("\n");
@@ -70,7 +68,6 @@ matriz eliminacaoGauss(matriz *a, int v) {
             if (v == 1) {
                 passo++;
                 snprintf(titulo, sizeof(titulo), "* PASSO %d: trocar linha %d com linha %d", passo, coluna_pivo + 1, maior + 1);
-                tamanho_frase = strlen(titulo);
                 printf("%s\n", titulo);
                 printarMatriz(&copia, 1);
                 printf("\n");
@@ -85,7 +82,6 @@ matriz eliminacaoGauss(matriz *a, int v) {
             if (v == 1) {
                 passo++;
                 snprintf(titulo, sizeof(titulo), "* PASSO %d: somar linha %d com linha %d", passo, coluna_pivo + 1, k + 1);
-                tamanho_frase = strlen(titulo);
                 printf("%s\n", titulo);
                 printarMatriz(&copia, 1);
                 printf("\n");
@@ -95,7 +91,6 @@ matriz eliminacaoGauss(matriz *a, int v) {
     }
     if (v == 1) {
         strcpy(titulo, "* MATRIZ ESCALONADA");
-        tamanho_frase = strlen(titulo);
         printf("%s\n", titulo);
         printarMatriz(&copia, 1);
         printf("\n");
