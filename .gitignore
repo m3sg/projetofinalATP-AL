@@ -1,0 +1,9 @@
+cmake-build-*/
+build/
+build_teste/
+build_debug/
+.idea/
+*.o
+*.exe
+*.out
+projetofinalATPAL
