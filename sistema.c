@@ -54,7 +54,7 @@ matriz eliminacaoGauss(matriz *a, int v) {
         printarMatriz(a, 1);
         printf("\n");
     }
-    int coluna_pivo = 0;
+    int coluna_pivo = 0;  //encontrar as colunas que tem pivo.
     for (int i = 0; i < copia.n_incognitas; i++) {
         if (coluna_pivo >= copia.linhas) break;
         int maior = coluna_pivo;
@@ -74,7 +74,7 @@ matriz eliminacaoGauss(matriz *a, int v) {
             }
         }
         if (fabs(copia.dados[coluna_pivo][i]) < 1e-9) {
-            continue;
+            continue;  //se achar o continua o laço
         }
         for (int k = coluna_pivo + 1; k < copia.linhas; k++) {
             double escalar = -(copia.dados[k][i] / copia.dados[coluna_pivo][i]);
