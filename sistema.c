@@ -59,11 +59,11 @@ matriz eliminacaoGauss(matriz *a, int v) {
         if (coluna_pivo >= copia.linhas) break;
         int maior = coluna_pivo;
         for (int k = coluna_pivo + 1; k < a->linhas; k++) {
-            if (fabs(copia.dados[maior][i]) < fabs(copia.dados[k][i])) {
+            if (fabs(copia.dados[maior][i]) < fabs(copia.dados[k][i])) { //VEREFICA SE É O MAIOR NUMERO NA COLUNA
                 maior = k;
             }
         }
-        if (maior != coluna_pivo) {
+        if (maior != coluna_pivo) { /se não for maior, troca as linhas
            trocarLinhas(&copia, maior, coluna_pivo);
             if (v == 1) {
                 passo++;
@@ -74,7 +74,7 @@ matriz eliminacaoGauss(matriz *a, int v) {
             }
         }
         if (fabs(copia.dados[coluna_pivo][i]) < 1e-9) {
-            continue;  //se achar o continua o laço
+            continue;  //se achar, para o laço e vai pro proximo.
         }
         for (int k = coluna_pivo + 1; k < copia.linhas; k++) {
             double escalar = -(copia.dados[k][i] / copia.dados[coluna_pivo][i]);
@@ -188,6 +188,9 @@ void resolverSistemaSPI (matriz *a) {
     int pivo[TAM_MAX] = {0};
     int livre[TAM_MAX] = {0};
 
+   /*1. Percorre cada linha da matriz para identificar a coluna do pivô de cada
+          linha (primeiro elemento com valor absoluto > 1e-9), armazenando em
+          pivo[i]. */
     for (int i = 0; i < a->linhas; i++) {
         for (int j = 0; j < a->n_incognitas; j++) {
             if (fabs(a->dados[i][j]) > 1e-9){
@@ -196,6 +199,8 @@ void resolverSistemaSPI (matriz *a) {
             }
         }
     }
+   /*       2. Marca como livres (livre[j] = 1) todas as colunas que não são pivô de
+          nenhuma linha.*/
 
     for (int j = 0; j < a->n_incognitas; j++) {
         livre[j] = 1;
@@ -206,7 +211,12 @@ void resolverSistemaSPI (matriz *a) {
             }
         }
     }
-
+/* 3. Para cada incógnita j:
+            - Se j é livre: imprime "xj = xj".
+            - Se j é pivô: localiza a linha correspondente e imprime a expressão
+              "xj = (independente / pivô) ± coef·xk" para cada variável livre xk
+              presente naquela linha, ajustando o sinal conforme o coeficiente.
+*/
     for (int j = 0; j < a->n_incognitas; j++) {
         if (livre[j] == 1) {
             printf("%s = %s\n", a->incognitas[j], a->incognitas[j]);
